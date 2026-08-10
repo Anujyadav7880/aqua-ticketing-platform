@@ -1,0 +1,355 @@
+ <!DOCTYPE html>
+<html>
+<head>
+  <title>Water Park Gallery</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #0f172a;
+      color: white;
+    }
+
+    /* HERO */
+    .hero {
+      height: 100vh;
+      background: url('Backgroundimg.jpg') center/cover no-repeat;
+      position: relative;
+    }
+
+    .overlay {
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(5px);
+      text-align: center;
+    }
+
+    .overlay h1 {
+      font-size: 60px;
+    }
+
+    .overlay p {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .overlay button {
+      padding: 12px 25px;
+      border: none;
+      background: linear-gradient(45deg, #00c6ff, #0072ff);
+      color: white;
+      font-size: 18px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .overlay button:hover {
+      transform: scale(1.1);
+    }
+
+    /* GALLERY */
+    .gallery-section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: 0.4s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.08);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+
+    /* LIGHTBOX */
+    #lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      background: rgba(0,0,0,0.95);
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    #lightbox img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 10px;
+    }
+
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      .overlay h1 {
+        font-size: 35px;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+
+ 
+ <!-- HERO -->
+<section class="hero" style="
+  height: 100vh;
+  background: url('GaBackground.jpg') center/cover no-repeat;
+  position: relative;
+">
+
+  <!-- 🔥 TRANSPARENT OVERLAY -->
+  <div class="overlay" style="
+    height: 100%;
+    background: rgba(0,0,0,0.5); /* transparency */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+  ">
+<p>A water park is a fun-filled recreational place designed for people of all ages to enjoy water-based activities and attractions. It features exciting rides like water slides, wave pools, lazy rivers, and splash zones for kids. Water parks are perfect for relaxing, cooling off in hot weather, and spending quality time with family and friends. With vibrant surroundings, music, and thrilling experiences, they create a lively and energetic atmosphere. Safety measures and trained staff ensure a secure environment for visitors. Overall, a water park offers a refreshing escape from daily routine and guarantees entertainment, adventure, and unforgettable memories.</p>
+    <h1 style="font-size: 60px; margin: 0;">Dive Into Fun!</h1>
+
+    <p style="font-size: 20px; margin: 15px 0;">
+      Experience thrilling water rides & attractions
+    </p>
+
+    <button onclick="scrollToGallery()" style="
+      padding: 12px 25px;
+      border: none;
+      background: linear-gradient(45deg, #00c6ff, #0072ff);
+      color: white;
+      font-size: 18px;
+      border-radius: 30px;
+      cursor: pointer;
+    ">
+      Explore Gallery
+    </button>
+
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section" id="gallery">
+  <h2> Our Attractions</h2>
+
+  <div class="gallery">
+ 
+    <img src="G4.jpg" onclick="openImage(this.src)">
+    <img src="G5.jpg" onclick="openImage(this.src)">
+    <img src="G6.jpg" onclick="openImage(this.src)">
+    <img src="G7.jpg" onclick="openImage(this.src)">
+    <img src="G1.jpg" onclick="openImage(this.src)">
+    <img src="G2.jpg" onclick="openImage(this.src)">
+    <img src="G3.jpg" onclick="openImage(this.src)">
+ <img src="G8.jpg" onclick="openImage(this.src)">
+  </div>
+</section>
+ 
+ 
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeImage()">
+  <span class="close">X</span>
+  <img id="lightbox-img">
+</div>
+<section style="padding:60px 20px; background:#0f172a; color:white; font-family:sans-serif;">
+
+  <h2 style="text-align:center; font-size:40px; margin-bottom:40px;">
+     Water Park Activities
+  </h2>
+
+  <div style="max-width:1100px; margin:auto;">
+
+    <!-- ITEM -->
+    <div style="margin-bottom:30px;">
+      <h3> Thrilling Water Slides</h3>
+      <p>
+        Water slides water park ka sabse exciting part hote hain. Yahan log high-speed slides ka thrill enjoy karte hain jo unhe ek adventure ride ka experience dete hain. Different types ke slides hote hain jaise spiral, straight drop, aur tunnel slides. Har slide ek unique excitement deta hai jo adrenaline rush ko boost karta hai aur visitors ko dubara try karne par majboor karta hai.
+      </p>
+    </div>
+
+    <div style="margin-bottom:30px;">
+      <h3> Wave Pool</h3>
+      <p>
+        Wave pool ek aisa area hota hai jahan artificial waves create ki jaati hain jo bilkul samundar jaisa feel deti hain. Log yahan safe environment me ocean waves ka maza le sakte hain bina kisi risk ke. Families aur friends ek saath enjoy karte hain, jump karte hain aur waves ke saath play karte hain, jo unhe ek refreshing aur energetic experience deta hai.
+      </p>
+    </div>
+
+    <div style="margin-bottom:30px;">
+      <h3> Swimming Pools</h3>
+      <p>
+        Swimming pools har water park ka basic aur relaxing attraction hota hai. Yahan log swimming karte hain, chill karte hain aur thandi water me relax feel karte hain. Alag-alag depth ke pools hote hain jisse beginners aur experts dono enjoy kar sakte hain. Yeh jagah stress door karne aur apne aap ko refresh karne ke liye perfect hoti hai.
+      </p>
+    </div>
+
+    <div style="margin-bottom:30px;">
+      <h3> Lazy River</h3>
+      <p>
+        Lazy river ek slow-moving water ride hoti hai jahan log inflatable tubes pe baith kar araam se flow ke saath move karte hain. Yeh activity un logon ke liye best hai jo relax karna chahte hain aur bina kisi tension ke ride enjoy karna chahte hain. Surroundings ka calm environment is experience ko aur bhi enjoyable bana deta hai.
+      </p>
+    </div>
+
+    <div style="margin-bottom:30px;">
+      <h3> Family Fun Zones</h3>
+      <p>
+        Family fun zones specially design kiye jaate hain taaki har age group ke log ek saath enjoy kar sakein. Yahan safe slides, splash areas aur interactive water features hote hain. Parents aur kids ek saath time spend karte hain aur bonding strong hoti hai. Yeh area secure hota hai jahan safety ka bhi pura dhyaan rakha jata hai.
+      </p>
+    </div>
+
+    <div style="margin-bottom:30px;">
+      <h3> Splash Pads</h3>
+      <p>
+        Splash pads specially chhote bachon ke liye hote hain jahan wo safe tarike se pani me khel sakte hain. Yahan fountains, water jets aur colorful structures hote hain jo kids ko attract karte hain. Yeh area non-slip aur safe design ke saath bana hota hai jisse parents bhi tension free rehte hain aur bachche freely enjoy karte hain.
+      </p>
+    </div>
+
+    <div style="margin-bottom:30px;">
+      <h3> Music & Dance</h3>
+      <p>
+        Water park me music aur dance ka alag hi maza hota hai. Live DJ, loud music aur party vibes logon ko energetic bana deti hain. Log water me dance karte hain aur ek festival jaisa environment create ho jata hai. Yeh experience pure entertainment aur enjoyment se bhara hota hai jo visitors ko unforgettable feel deta hai.
+      </p>
+    </div>
+
+    <div style="margin-bottom:30px;">
+      <h3> Food & Snacks</h3>
+      <p>
+        Water park me delicious food aur snacks ka bhi pura arrangement hota hai. Visitors yahan fast food, cold drinks aur refreshing items enjoy kar sakte hain. Long rides ke baad tasty food energy ko boost karta hai aur thakan door karta hai. Yeh area relaxation aur refreshment ke liye perfect hota hai.
+      </p>
+    </div>
+
+    <div style="margin-bottom:30px;">
+      <h3> Photo Spots</h3>
+      <p>
+        Water park me attractive photo spots hote hain jahan log apni memories capture karte hain. Beautiful backgrounds, water rides aur colorful areas Instagram-worthy photos ke liye perfect hote hain. Log yahan selfies aur group photos lete hain jo unke special moments ko yaadgaar bana dete hain.
+      </p>
+    </div>
+
+    <div style="margin-bottom:30px;">
+      <h3> Relaxation Areas</h3>
+      <p>
+        Relaxation areas un logon ke liye hote hain jo thoda break lena chahte hain. Yahan sunbeds, shaded areas aur comfortable seating hoti hai. Log yahan baith kar rest karte hain, enjoy karte hain aur apni energy recover karte hain. Yeh jagah peaceful aur calm environment provide karti hai.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+<footer style="
+  background: linear-gradient(to right, #020617, #0f172a);
+  color:white;
+  padding:50px 20px;
+  font-family:sans-serif;
+">
+
+  <div style="
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:40px;
+  ">
+
+    <!-- ABOUT -->
+    <div style="flex:1; min-width:250px;">
+      <h2 style="color:#38bdf8;">🌊 Water Park</h2>
+      <p style="line-height:1.6;">
+        Experience ultimate fun with thrilling water slides, relaxing pools,
+        and exciting attractions. Perfect destination for friends, family,
+        and adventure lovers to create unforgettable memories.
+      </p>
+    </div>
+
+    <!-- LINKS -->
+    <div style="flex:1; min-width:200px;">
+      <h3>🔗 Quick Links</h3>
+      <ul style="list-style:none; padding:0; line-height:2;">
+        <li><a href="#" style="color:#38bdf8; text-decoration:none;">Home</a></li>
+        <li><a href="#gallery" style="color:#38bdf8; text-decoration:none;">Gallery</a></li>
+        <li><a href="#" style="color:#38bdf8; text-decoration:none;">Activities</a></li>
+        <li><a href="#" style="color:#38bdf8; text-decoration:none;">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- CONTACT -->
+    <div style="flex:1; min-width:250px;">
+      <h3>📞 Contact</h3>
+      <p>📍 Your City, India</p>
+      <p>📧 info@waterpark.com</p>
+      <p>📱 +91 9876543210</p>
+
+      <!-- SOCIAL ICONS -->
+      <div style="margin-top:15px;">
+        <a href="#" style="margin-right:10px; color:white; font-size:20px;">🌐</a>
+        <a href="#" style="margin-right:10px; color:white; font-size:20px;">📘</a>
+        <a href="#" style="margin-right:10px; color:white; font-size:20px;">📸</a>
+        <a href="#" style="margin-right:10px; color:white; font-size:20px;">▶️</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM -->
+  <div style="
+    text-align:center;
+    margin-top:40px;
+    border-top:1px solid #1e293b;
+    padding-top:20px;
+    font-size:14px;
+  ">
+    © 2025 Water Park | Made with ❤️ | All Rights Reserved
+  </div>
+
+</footer>
+
+<script>
+  function scrollToGallery() {
+    document.getElementById("gallery").scrollIntoView({
+      behavior: "smooth"
+    });
+  }
+
+  function openImage(src) {
+    document.getElementById("lightbox").style.display = "flex";
+    document.getElementById("lightbox-img").src = src;
+  }
+
+  function closeImage() {
+    document.getElementById("lightbox").style.display = "none";
+  }
+</script>
+
+</body>
+</html>
