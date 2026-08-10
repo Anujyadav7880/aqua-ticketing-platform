@@ -1,7 +1,240 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Water Park</title>
+  <link rel="stylesheet" href="a.css">
+</head>
+
 <body>
-<h1>Water Park 🎢💦</h1>
-<p>Book your tickets here</p>
+
+  <!-- Navbar -->
+  <header>
+    <nav class="navbar">
+      <h1 class="logo">💦 AquaFun</h1>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Attractions</a></li>
+        <li class="info-item">
+         
+    <button id="infoBtn">View Ticket Info</button>
+
+    <div id="infoBox" style="display:none; margin-top:10px; border:1px solid #ccc; padding:15px; background:white;">
+        <h3>Ticket Info</h3>
+        <p> Adult: ₹500</p>
+        <p> Child: ₹300</p>
+        <p> VIP: ₹800</p>
+        <p> Timing: 10:00 - 2:00 / 2:30 - 5:00</p>
+    </div>
+ 
+        </li>
+
+        <li><a href="#">Gallery</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Dive Into Fun!</h1>
+    <p>Experience the best water adventures</p>
+    <div class="buttons">
+      <a href="Ticket.html"> <button>Book Tickets</button></a>
+
+     <!-- Explore Button -->
+      <a href="Gallery.html"><button class="secondary" onclick="openGallery()">Explore</button></a>
+ 
+
+
+
+  </div>
+</div>
+    </div>
+  </section>
+
+  <!-- Attractions -->
+  <section class="attractions">
+    <h2>Our Attractions</h2>
+    <div class="cards">
+      <div class="card">
+        <img src="OIP.jpeg">
+        <h3>Water Slides</h3>
+        <p>Thrilling rides for all ages</p>
+      </div>
+      <div class="card">
+        <img src="wavepool.webp">
+        <h3>Wave Pool</h3>
+        <p>Enjoy ocean-like waves</p>
+      </div>
+      <div class="card">
+        <img src="Lazy.jpg">
+        <h3>Lazy River</h3>
+        <p>Relax and float around</p>
+      </div>
+    </div>
+  </section>
+
+   
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="gallery">
+    <h2>Gallery</h2>
+    <div class="images">
+      <img src="img1.jpeg">
+      <img src="img2.jpeg">
+      <img src="img3.jpeg">
+      <img src="img4.jpeg">
+    </div>
+  </section>
+
+<!--about waterPark-->
+
+  <section class="info-section">
+  <h2>Aqua Fun Water Park Info</h2>
+
+  <div class="info-cards">
+
+    <div class="info-card">
+      <h3> About</h3>
+      <p>Aqua Fun Water Park is a perfect destination for family and friends to enjoy thrilling water rides and relaxation.</p>
+    </div>
+
+    <div class="info-card">
+      <h3> Distance</h3>
+      <p>Located 10 km from city center. Easy access by bus, car, and taxi.</p>
+    </div>
+
+    <div class="info-card">
+      <h3> Facilities</h3>
+      <p>Changing rooms, lockers, food court, parking, and lifeguards available.</p>
+    </div>
+
+    <div class="info-card">
+      <h3> Things To Do</h3>
+      <p>Water slides, wave pool, lazy river, kids play zone, and rain dance.</p>
+    </div>
+
+    <div class="info-card warning">
+      <h3> Warning</h3>
+      <p>Follow safety rules. Children must be supervised. No running near pools.</p>
+    </div>
+
+  </div>
+</section>
+
+  <!-- Contact -->
+  <section class="contact">
+    <h2>Feedback</h2>
+
+<form id="feedbackForm"  >
+  <input type="text" placeholder="Your Name" required>
+  <input type="email" placeholder="Email" required>
+  <textarea placeholder="Message" required></textarea>
+  <button type="submit">Send</button>
+</form>
+
+<!-- Popup -->
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <div class="checkmark">✔</div>
+    <p>your Message Send successfully! get lost And tere liye hindi mai nikl bhosdibale</p>
+  </div>
+</div>
+  </section>
+   <!--location-->
+ <section class="map-section">
+  <h2> Our Location</h2>
+
+  <div class="map-container">
+    <iframe 
+      src=" https://www.google.com/maps?q= PLOT NO 1/A, SR NO 54 M K STAR COMPOUND ,JABARPADA VASAI EAST, Maharashtra 401305&output=embed  "
+      width="100%" 
+      height="400" 
+      style="border:0;" 
+      allowfullscreen="" 
+      loading="lazy">
+    </iframe>
+  </div>
+</section>
+  <!-- Footer -->
+  
+  <footer style="
+  background: linear-gradient(to right, #020617, #0f172a);
+  color:white;
+  padding:50px 20px;
+  font-family:sans-serif;
+">
+
+  <div style="
+    max-width:1100px;
+    margin:auto;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:40px;
+  ">
+
+    <!-- ABOUT -->
+    <div style="flex:1; min-width:250px;">
+      <h2 style="color:#38bdf8;"> Water Park</h2>
+      <p style="line-height:1.6;">
+        Experience ultimate fun with thrilling water slides, relaxing pools,
+        and exciting attractions. Perfect destination for friends, family,
+        and adventure lovers to create unforgettable memories.
+      </p>
+    </div>
+
+    <!-- LINKS -->
+    <div style="flex:1; min-width:200px;">
+      <h3> Quick Links</h3>
+      <ul style="list-style:none; padding:0; line-height:2;">
+        <li><a href="#" style="color:#38bdf8; text-decoration:none;">Home</a></li>
+        <li><a href="#gallery" style="color:#38bdf8; text-decoration:none;">Gallery</a></li>
+        <li><a href="#" style="color:#38bdf8; text-decoration:none;">Activities</a></li>
+        <li><a href="#" style="color:#38bdf8; text-decoration:none;">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- CONTACT -->
+    <div style="flex:1; min-width:250px;">
+      <h3> Contact</h3>
+      <p>Lucknow, India</p>
+      <p> info@waterpark.com</p>
+      <p>7880737506</p>
+
+      <!-- SOCIAL ICONS -->
+      <div style="margin-top:15px;">
+        <a href="#" style="margin-right:10px; color:white; font-size:20px;">🌐</a>
+        <a href="#" style="margin-right:10px; color:white; font-size:20px;">📘</a>
+        <a href="#" style="margin-right:10px; color:white; font-size:20px;">📸</a>
+        <a href="#" style="margin-right:10px; color:white; font-size:20px;">▶️</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM -->
+  <div style="
+    text-align:center;
+    margin-top:40px;
+    border-top:1px solid #1e293b;
+    padding-top:20px;
+    font-size:14px;
+  ">
+    © 2027 Water Park | Made with  | All Rights Reserved
+  </div>
+
+</footer>
+ <footer>
+    <p>© 2026 AquaFun Water Park | All Rights Reserved</p>
+  </footer>
+<script src="script.js"></script>
 </body>
+
 </html>
+<!--mai abhi galary shi kr rha hu in explore buttion me -->

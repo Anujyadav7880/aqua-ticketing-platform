@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Water Park Booking</title>
+</head>
+
+<body style="
+  margin:0;
+  font-family:sans-serif;
+
+  /* 🌊 FULL BACKGROUND IMAGE */
+  background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') no-repeat center center/cover;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+">
+
+  <!-- 🌊 FORM CONTAINER -->
+  <div style="
+    width:320px;
+    padding:25px;
+
+    /* 💧 WATER GLASS EFFECT */
+    background: rgba(0, 150, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius:15px;
+    border:1px solid rgba(255,255,255,0.3);
+
+    color:white;
+    box-shadow:0 0 20px rgba(0,0,0,0.4);
+  ">
+
+    <h2 style="text-align:center;">🎟️ Book Your Tickets</h2>
+
+    <label>Timing</label>
+    <select style="width:100%; padding:8px; margin:10px 0;">
+      <option>Select Timing</option>
+      <option>10:00 To 2:00</option>
+      <option>2:30 To 5:00</option>
+    </select>
+
+    <label>Name</label>
+    <input type="text" placeholder="Enter name"
+      style="width:100%; padding:8px; margin:10px 0;">
+
+    <label>Booking Date</label>
+    <input type="date"
+      style="width:100%; padding:8px; margin:10px 0;">
+
+    <label>Category</label>
+    <select style="width:100%; padding:8px; margin:10px 0;">
+      <option>Select Category</option>
+      <option>Adult</option>
+      <option>Kids</option>
+    </select>
+
+    <label>Available Seat</label>
+    <input type="number" placeholder="Enter seats"
+      style="width:100%; padding:8px; margin:10px 0;">
+
+    <label>Seat Type</label>
+    <select style="width:100%; padding:8px; margin:10px 0;">
+      <option>Normal</option>
+      <option>VIP</option>
+    </select>
+
+    <button style="
+      width:100%;
+      padding:10px;
+      margin-top:15px;
+      background:#38bdf8;
+      border:none;
+      border-radius:8px;
+      color:white;
+      font-size:16px;
+      cursor:pointer;
+    ">
+      Book Now
+    </button>
+
+  </div>
+<script src="script.js"></script>
+</body>
+</html>
