@@ -6,58 +6,166 @@
 }
 
 body {
-    background:white;
+    background: white;
 }
 
 /* Navbar */
+ 
+
 .navbar {
+    width: 100%;
+    height: 75px;
+
     display: flex;
+    align-items: center;
+    /* Top-Bottom Center */
     justify-content: space-between;
-    padding: 15px 50px;
+
+    padding: 0 30px;
+    box-sizing: border-box;
+
     background: #00bcd4;
     color: white;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    z-index: 1000;
 }
+
+
+ 
+
+.logo {
+    width: 120px;
+    height: 60px;
+
+    object-fit: contain;
+    display: block;
+}
+
+
+ 
 
 .navbar ul {
     display: flex;
+    align-items: center;
+
     list-style: none;
+
+    margin: 0;
+    padding: 0;
+
+    gap: 40px;
 }
 
+
+
+
 .navbar ul li {
-    margin: 0 15px;
+    margin: 0;
+    position: relative;
 }
+
+
+ 
 
 .navbar a {
     color: white;
     text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    white-space: nowrap;
 }
-.navbar ul li {
-    overflow: visible;
+
+
+/* Hover Effect */
+
+.navbar a:hover {
+    color: #fff700;
 }
+
+
+ 
+
 .info-item {
     position: relative;
 }
 
 #infoBox {
     display: none;
+
     position: absolute;
-    top: 40px;
+
+    top: 35px;
     left: 0;
 
     background: white;
     color: black;
+
     padding: 15px;
-    border-radius: 8px;
 
     width: 220px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+
+    border-radius: 8px;
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
     z-index: 999;
 }
+
+
  
+
+body {
+    margin: 0;
+    padding-top: 75px;
+}
+
+
+/*MOBILE  */
+
+@media (max-width: 600px) {
+
+    .navbar {
+        height: 60px;
+        padding: 0 10px;
+    }
+
+    .logo {
+        width: 80px;
+        height: 50px;
+    }
+
+    .navbar ul {
+        gap: 12px;
+    }
+
+    .navbar ul li {
+        margin: 0;
+    }
+
+    .navbar a {
+        font-size: 14px;
+    }
+
+    body {
+        padding-top: 60px;
+    }
+
+    #infoBox {
+        width: 180px;
+        font-size: 13px;
+    }
+}
+
 /* Hero */
 .hero {
     height: 90vh;
-    background: url('Backgroundimg.webp') no-repeat center/cover;
+    background: url('Backgroundimg2.png') no-repeat center/cover;
     color: white;
     text-align: center;
     padding-top: 150px;
@@ -109,23 +217,24 @@ section {
     width: 100%;
     border-radius: 10px;
 }
+
 /* Pricing */
 .price-cards {
-display: flex;
-justify-content: center;
-gap: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
 
 .price {
-background: white;
-padding: 20px;
-width: 200px;
-border-radius: 10px;
+    background: white;
+    padding: 20px;
+    width: 200px;
+    border-radius: 10px;
 }
 
 .highlight {
-background: #00bcd4;
-color: white;
+    background: #00bcd4;
+    color: white;
 }
 
 
@@ -142,14 +251,15 @@ color: white;
 }
 
 /* Contact */
- form {
+form {
     display: flex;
     flex-direction: column;
     width: 300px;
     margin: auto;
 }
 
-input, textarea {
+input,
+textarea {
     margin: 10px 0;
     padding: 10px;
 }
@@ -162,14 +272,14 @@ button {
     cursor: pointer;
 }
 
-/* 🔥 Popup CSS */
+/*  Popup CSS */
 .popup {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     display: none;
     justify-content: center;
     align-items: center;
@@ -191,14 +301,29 @@ button {
 }
 
 @keyframes scaleUp {
-    from { transform: scale(0.5); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 @keyframes pop {
-    0% { transform: scale(0); }
-    80% { transform: scale(1.2); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(0);
+    }
+
+    80% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 /* Footer */
@@ -210,7 +335,9 @@ footer {
 
 /* Responsive */
 @media(max-width: 768px) {
-    .cards, .price-cards {
+
+    .cards,
+    .price-cards {
         flex-direction: column;
         align-items: center;
     }
@@ -219,6 +346,7 @@ footer {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
 /* ===== Ticket Booking Form (Add-on CSS) ===== */
 
 .ticket-container {
@@ -233,7 +361,7 @@ footer {
     padding: 30px;
     width: 350px;
     border-radius: 10px;
-    box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
 }
 
 .ticket-form h2 {
@@ -265,60 +393,61 @@ footer {
     border-radius: 5px;
     font-size: 16px;
 }
+
 /*info water Park*/
- .info-section {
-  padding: 50px 20px;
-  text-align: center;
-  background: #f9f9f9;
+.info-section {
+    padding: 50px 20px;
+    text-align: center;
+    background: #f9f9f9;
 }
 
 .info-cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
 }
 
 .info-card {
-  width: 250px;
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 250px;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .info-card h3 {
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 /* Warning card highlight */
 .warning {
-  background: #ffebee;
-  border-left: 5px solid red;
+    background: #ffebee;
+    border-left: 5px solid red;
 }
 
 /* Tablet */
 @media (max-width: 992px) {
-  .info-card {
-    width: 45%;
-  }
+    .info-card {
+        width: 45%;
+    }
 }
 
 /* Mobile */
 @media (max-width: 600px) {
-  .info-card {
-    width: 90%;
-  }
+    .info-card {
+        width: 90%;
+    }
 }
+
 /*Location*/
 iframe {
-  width: 100%;
-  height: 300px;
+    width: 100%;
+    height: 300px;
 }
 
 @media (max-width: 600px) {
-  iframe {
-    height: 250px;
-  }
+    iframe {
+        height: 250px;
+    }
 }
- 
