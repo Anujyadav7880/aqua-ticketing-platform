@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Ticket Verification - Aqua Water Park</title>
+
+    <!-- QR SCANNER LIBRARY -->
+    <script src="https://unpkg.com/html5-qrcode"
+            type="text/javascript"></script>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+
+            background: white;
+
+            padding: 30px;
+
+            border-radius: 16px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #0f172a;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #334155;
+        }
+
+        input {
+            width: 100%;
+
+            padding: 14px;
+
+            border: 1px solid #cbd5e1;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #38bdf8;
+        }
+
+        button {
+            width: 100%;
+
+            margin-top: 15px;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #0284c7;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0369a1;
+        }
+
+        button:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        #result {
+            margin-top: 25px;
+        }
+
+        .success {
+            background: #dcfce7;
+            border: 1px solid #86efac;
+
+            padding: 20px;
+
+            border-radius: 10px;
+
+            color: #166534;
+        }
+
+        .error {
+            background: #fee2e2;
+            border: 1px solid #fca5a5;
+
+            padding: 20px;
+
+            border-radius: 10px;
+
+            color: #991b1b;
+        }
+
+        .ticket-details {
+            margin-top: 15px;
+        }
+
+        .ticket-details p {
+            margin: 8px 0;
+        }
+
+        .status {
+            font-size: 20px;
+            font-weight: bold;
+
+            margin-bottom: 10px;
+        }
+
+        /* =========================
+           QR SCANNER
+        ========================= */
+
+        #reader {
+            width: 100%;
+            margin-top: 20px;
+            display: none;
+
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .scanner-button {
+            background: #16a34a;
+        }
+
+        .scanner-button:hover {
+            background: #15803d;
+        }
+
+        .stop-button {
+            background: #dc2626;
+            display: none;
+        }
+
+        .stop-button:hover {
+            background: #b91c1c;
+        }
+
+        .scanner-info {
+            text-align: center;
+            margin-top: 10px;
+
+            color: #64748b;
+            font-size: 14px;
+
+            display: none;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="container">
+
+        <h1>🎟️ Ticket Verification</h1>
+
+        <p class="subtitle">
+            Aqua Water Park - Staff Panel
+        </p>
+
+
+        <!-- =========================
+             QR SCANNER BUTTON
+        ========================== -->
+
+        <button
+            type="button"
+            id="scanButton"
+            class="scanner-button">
+
+            📷 Scan QR Code
+
+        </button>
+
+
+        <!-- QR CAMERA AREA -->
+
+        <div id="reader"></div>
+
+
+        <p
+            id="scannerInfo"
+            class="scanner-info">
+
+            Point the camera at the customer's QR code.
+
+        </p>
+
+
+        <button
+            type="button"
+            id="stopButton"
+            class="stop-button">
+
+            ✖ Stop Scanner
+
+        </button>
+
+
+        <!-- =========================
+             MANUAL VERIFICATION
+        ========================== -->
+
+        <form id="verifyForm">
+
+            <label for="ticketId">
+                Enter Ticket ID
+            </label>
+
+            <input
+                type="text"
+                id="ticketId"
+                placeholder="Example: WP-80F126AF41FE"
+                required
+            >
+
+            <button type="submit">
+
+                🔍 Verify Ticket
+
+            </button>
+
+        </form>
+
+
+        <div id="result"></div>
+
+    </div>
+
+
+<script>
+
+const verifyForm =
+    document.getElementById("verifyForm");
+
+const ticketInput =
+    document.getElementById("ticketId");
+
+const result =
+    document.getElementById("result");
+
+const scanButton =
+    document.getElementById("scanButton");
+
+const stopButton =
+    document.getElementById("stopButton");
+
+const reader =
+    document.getElementById("reader");
+
+const scannerInfo =
+    document.getElementById("scannerInfo");
+
+
+// Store currently verified ticket
+
+let verifiedTicketId = null;
+
+
+// QR scanner object
+
+let html5QrCode = null;
+
+
+// Prevent multiple scans
+
+let qrScanLocked = false;
+
+
+// =====================================================
+// VERIFY TICKET
+// =====================================================
+
+verifyForm.addEventListener(
+    "submit",
+    async function (e) {
+
+        e.preventDefault();
+
+        const ticketId =
+            ticketInput.value.trim();
+
+        if (!ticketId) {
+            return;
+        }
+
+        result.innerHTML =
+            "<p>Checking ticket...</p>";
+
+        verifiedTicketId = null;
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "http://localhost:5000/api/verify-ticket",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            ticketId: ticketId
+                        })
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            console.log(
+                "Verification result:",
+                data
+            );
+
+
+            // =================================================
+            // VALID TICKET
+            // =================================================
+
+            if (data.success) {
+
+                verifiedTicketId =
+                    data.booking.ticketId;
+
+
+                result.innerHTML = `
+
+                    <div class="success">
+
+                        <div class="status">
+                            ✅ VALID TICKET
+                        </div>
+
+                        <div class="ticket-details">
+
+                            <p>
+                                <strong>
+                                    Ticket ID:
+                                </strong>
+                                ${data.booking.ticketId}
+                            </p>
+
+                            <p>
+                                <strong>
+                                    Name:
+                                </strong>
+                                ${data.booking.name}
+                            </p>
+
+                            <p>
+                                <strong>
+                                    Date:
+                                </strong>
+                                ${data.booking.bookingDate}
+                            </p>
+
+                            <p>
+                                <strong>
+                                    Category:
+                                </strong>
+                                ${data.booking.category}
+                            </p>
+
+                            <p>
+                                <strong>
+                                    Quantity:
+                                </strong>
+                                ${data.booking.quantity}
+                            </p>
+
+                            <p>
+                                <strong>
+                                    Amount:
+                                </strong>
+                                ₹${data.booking.totalPrice}
+                            </p>
+
+                            <p>
+                                <strong>
+                                    Payment:
+                                </strong>
+                                ${data.booking.paymentStatus}
+                            </p>
+
+                            <p>
+                                <strong>
+                                    Ticket Status:
+                                </strong>
+                                ${data.booking.ticketStatus}
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            id="checkInButton"
+                            type="button">
+
+                            🚪 CHECK IN
+
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                const checkInButton =
+                    document.getElementById(
+                        "checkInButton"
+                    );
+
+
+                checkInButton.addEventListener(
+                    "click",
+                    checkInTicket
+                );
+
+            }
+
+            // =================================================
+            // INVALID / USED / CANCELLED
+            // =================================================
+
+            else {
+
+                result.innerHTML = `
+
+                    <div class="error">
+
+                        <div class="status">
+                            ❌ ${data.message}
+                        </div>
+
+                        <p>
+                            Ticket ID:
+                            ${ticketId}
+                        </p>
+
+                    </div>
+
+                `;
+
+            }
+
+
+        } catch (error) {
+
+            console.error(
+                "Verification error:",
+                error
+            );
+
+
+            result.innerHTML = `
+
+                <div class="error">
+
+                    <div class="status">
+                        ❌ SERVER ERROR
+                    </div>
+
+                    <p>
+                        Unable to connect
+                        to ticket server.
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+    }
+);
+
+
+// =====================================================
+// START QR SCANNER
+// =====================================================
+
+scanButton.addEventListener(
+    "click",
+    startScanner
+);
+
+
+async function startScanner() {
+
+    try {
+
+        qrScanLocked = false;
+
+        reader.style.display = "block";
+
+        scannerInfo.style.display = "block";
+
+        scanButton.style.display = "none";
+
+        stopButton.style.display = "block";
+
+
+        html5QrCode =
+            new Html5Qrcode("reader");
+
+
+        const config = {
+
+            fps: 10,
+
+            qrbox: {
+                width: 250,
+                height: 250
+            }
+
+        };
+
+
+        await html5QrCode.start(
+
+            {
+                facingMode: "environment"
+            },
+
+            config,
+
+            onQrCodeScanned,
+
+            onQrCodeError
+
+        );
+
+
+        console.log(
+            "QR scanner started"
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Unable to start QR scanner:",
+            error
+        );
+
+
+        reader.style.display = "none";
+
+        scannerInfo.style.display = "none";
+
+        scanButton.style.display = "block";
+
+        stopButton.style.display = "none";
+
+
+        alert(
+            "Unable to access camera.\n\n" +
+            "Please allow camera permission " +
+            "for this website."
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// QR SCANNED
+// =====================================================
+
+async function onQrCodeScanned(decodedText) {
+
+    console.log(
+        "QR scanned:",
+        decodedText
+    );
+
+
+    // Prevent scanner from firing repeatedly
+
+    if (qrScanLocked) {
+        return;
+    }
+
+    qrScanLocked = true;
+
+
+    // Stop camera
+
+    await stopScanner();
+
+
+    // Put scanned ticket ID into input
+
+    ticketInput.value =
+        decodedText.trim();
+
+
+    // Automatically verify
+
+    verifyForm.requestSubmit();
+
+}
+
+
+// =====================================================
+// QR SCAN ERROR
+// =====================================================
+
+function onQrCodeError(errorMessage) {
+
+    // Ignore normal scanning errors.
+    // The library calls this repeatedly
+    // while searching for a QR code.
+
+}
+
+
+// =====================================================
+// STOP QR SCANNER
+// =====================================================
+
+stopButton.addEventListener(
+    "click",
+    stopScanner
+);
+
+
+async function stopScanner() {
+
+    try {
+
+        if (html5QrCode) {
+
+            const state =
+                html5QrCode.getState();
+
+
+            if (
+                state ===
+                Html5QrcodeScannerState.SCANNING
+            ) {
+
+                await html5QrCode.stop();
+
+            }
+
+
+            await html5QrCode.clear();
+
+            html5QrCode = null;
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Scanner stop error:",
+            error
+        );
+
+    }
+
+
+    reader.style.display = "none";
+
+    scannerInfo.style.display = "none";
+
+    scanButton.style.display = "block";
+
+    stopButton.style.display = "none";
+
+}
+
+
+// =====================================================
+// CHECK IN TICKET
+// =====================================================
+
+async function checkInTicket() {
+
+    if (!verifiedTicketId) {
+
+        alert(
+            "Please verify the ticket first."
+        );
+
+        return;
+    }
+
+
+    const confirmation =
+        confirm(
+            "Are you sure you want to CHECK IN this ticket?"
+        );
+
+
+    if (!confirmation) {
+        return;
+    }
+
+
+    const button =
+        document.getElementById(
+            "checkInButton"
+        );
+
+
+    button.disabled = true;
+
+    button.innerText =
+        "CHECKING IN...";
+
+
+    try {
+
+        const response =
+            await fetch(
+                "http://localhost:5000/api/check-in-ticket",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        ticketId:
+                            verifiedTicketId
+                    })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "Check-in result:",
+            data
+        );
+
+
+        // =================================================
+        // SUCCESS
+        // =================================================
+
+        if (data.success) {
+
+            result.innerHTML = `
+
+                <div class="success">
+
+                    <div class="status">
+                        ✅ CHECK-IN SUCCESSFUL
+                    </div>
+
+                    <div class="ticket-details">
+
+                        <p>
+                            <strong>
+                                Ticket ID:
+                            </strong>
+                            ${data.ticket.ticketId}
+                        </p>
+
+                        <p>
+                            <strong>
+                                Name:
+                            </strong>
+                            ${data.ticket.name}
+                        </p>
+
+                        <p>
+                            <strong>
+                                Date:
+                            </strong>
+                            ${data.ticket.bookingDate}
+                        </p>
+
+                        <p>
+                            <strong>
+                                Quantity:
+                            </strong>
+                            ${data.ticket.quantity}
+                        </p>
+
+                        <p>
+                            <strong>
+                                Status:
+                            </strong>
+                            USED
+                        </p>
+
+                        <p>
+                            <strong>
+                                Entry Time:
+                            </strong>
+                            ${new Date(
+                                data.ticket.usedAt
+                            ).toLocaleString()}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            verifiedTicketId = null;
+
+        }
+
+
+        // =================================================
+        // FAILED CHECK-IN
+        // =================================================
+
+        else {
+
+            result.innerHTML = `
+
+                <div class="error">
+
+                    <div class="status">
+                        ❌ CHECK-IN FAILED
+                    </div>
+
+                    <p>
+                        ${data.message}
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "Check-in error:",
+            error
+        );
+
+
+        result.innerHTML = `
+
+            <div class="error">
+
+                <div class="status">
+                    ❌ SERVER ERROR
+                </div>
+
+                <p>
+                    Unable to connect
+                    to ticket server.
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,85 +1,982 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>Water Park Booking</title>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Aqua Water Park - Booking</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+
+      min-height: 100vh;
+
+      background:
+        linear-gradient(
+          rgba(0, 40, 80, 0.45),
+          rgba(0, 20, 50, 0.65)
+        ),
+        url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e")
+        no-repeat center center / cover;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      padding: 30px 15px;
+    }
+
+    /* =========================
+       BOOKING FORM
+       ========================= */
+
+    .booking-card {
+
+      width: 380px;
+
+      padding: 30px;
+
+      background: rgba(255, 255, 255, 0.12);
+
+      backdrop-filter: blur(15px);
+
+      border: 1px solid rgba(255, 255, 255, 0.25);
+
+      border-radius: 20px;
+
+      color: white;
+
+      box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.35);
+    }
+
+    .booking-card h2 {
+
+      margin-top: 0;
+
+      margin-bottom: 25px;
+
+      text-align: center;
+
+      font-size: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+
+      display: block;
+
+      margin-bottom: 6px;
+
+      font-size: 14px;
+
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group select {
+
+      width: 100%;
+
+      padding: 11px 12px;
+
+      border: none;
+
+      border-radius: 8px;
+
+      outline: none;
+
+      font-size: 15px;
+    }
+
+    .book-button {
+
+      width: 100%;
+
+      padding: 13px;
+
+      margin-top: 10px;
+
+      border: none;
+
+      border-radius: 10px;
+
+      background: #38bdf8;
+
+      color: white;
+
+      font-size: 16px;
+
+      font-weight: bold;
+
+      cursor: pointer;
+
+      transition: 0.2s;
+    }
+
+    .book-button:hover {
+      background: #0ea5e9;
+      transform: translateY(-1px);
+    }
+
+
+    /* =========================
+       TICKET CONTAINER
+       ========================= */
+
+    #ticketContainer {
+
+      display: none;
+
+      width: 100%;
+
+      max-width: 720px;
+    }
+
+
+    /* =========================
+       PROFESSIONAL TICKET
+       ========================= */
+
+    .ticket {
+
+      position: relative;
+
+      width: 100%;
+
+      background: white;
+
+      color: #0f172a;
+
+      border-radius: 22px;
+
+      overflow: hidden;
+
+      box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.45);
+    }
+
+
+    /* =========================
+       TICKET HEADER
+       ========================= */
+
+    .ticket-header {
+
+      padding: 25px 30px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #0284c7,
+          #06b6d4
+        );
+
+      color: white;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+    }
+
+    .park-name {
+
+      font-size: 25px;
+
+      font-weight: 800;
+
+      letter-spacing: 0.5px;
+    }
+
+    .park-tagline {
+
+      margin-top: 4px;
+
+      font-size: 12px;
+
+      opacity: 0.9;
+
+      letter-spacing: 1px;
+    }
+
+    .entry-badge {
+
+      padding: 8px 13px;
+
+      border-radius: 20px;
+
+      background: rgba(255,255,255,0.2);
+
+      border: 1px solid rgba(255,255,255,0.4);
+
+      font-size: 12px;
+
+      font-weight: bold;
+
+      white-space: nowrap;
+    }
+
+
+    /* =========================
+       CONFIRMATION
+       ========================= */
+
+    .ticket-confirmed {
+
+      padding: 18px 30px;
+
+      background: #f0fdf4;
+
+      border-bottom: 1px solid #dcfce7;
+
+      color: #166534;
+
+      font-weight: bold;
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 8px;
+    }
+
+
+    /* =========================
+       MAIN TICKET CONTENT
+       ========================= */
+
+    .ticket-body {
+
+      padding: 30px;
+
+      display: grid;
+
+      grid-template-columns: 1fr 190px;
+
+      gap: 30px;
+
+      align-items: center;
+    }
+
+
+    /* =========================
+       CUSTOMER DETAILS
+       ========================= */
+
+    .customer-label {
+
+      font-size: 12px;
+
+      color: #64748b;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1px;
+
+      margin-bottom: 5px;
+    }
+
+    .customer-name {
+
+      font-size: 28px;
+
+      font-weight: 800;
+
+      margin-bottom: 25px;
+
+      color: #0f172a;
+    }
+
+    .details-grid {
+
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 20px;
+    }
+
+    .detail-item span {
+
+      display: block;
+    }
+
+    .detail-label {
+
+      font-size: 11px;
+
+      text-transform: uppercase;
+
+      color: #64748b;
+
+      letter-spacing: 0.8px;
+
+      margin-bottom: 5px;
+    }
+
+    .detail-value {
+
+      font-size: 16px;
+
+      font-weight: 700;
+
+      color: #0f172a;
+    }
+
+
+    /* =========================
+       QR SECTION
+       ========================= */
+
+    .qr-section {
+
+      display: flex;
+
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: center;
+    }
+
+    #qrcode {
+
+      width: 170px;
+
+      height: 170px;
+
+      padding: 10px;
+
+      background: white;
+
+      border: 1px solid #e2e8f0;
+
+      border-radius: 12px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+    }
+
+    #qrcode img {
+
+      max-width: 100%;
+
+      max-height: 100%;
+    }
+
+    .qr-text {
+
+      margin-top: 10px;
+
+      font-size: 11px;
+
+      color: #64748b;
+
+      text-align: center;
+
+      line-height: 1.4;
+    }
+
+
+    /* =========================
+       TICKET ID
+       ========================= */
+
+    .ticket-id-section {
+
+      margin: 0 30px;
+
+      padding: 18px 20px;
+
+      background: #f8fafc;
+
+      border: 1px dashed #cbd5e1;
+
+      border-radius: 12px;
+    }
+
+    .ticket-id-label {
+
+      font-size: 11px;
+
+      color: #64748b;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1px;
+
+      margin-bottom: 5px;
+    }
+
+    #ticketId {
+
+      font-family: monospace;
+
+      font-size: 20px;
+
+      font-weight: bold;
+
+      color: #0369a1;
+
+      letter-spacing: 1px;
+    }
+
+
+    /* =========================
+       STATUS
+       ========================= */
+
+    .ticket-footer {
+
+      margin-top: 25px;
+
+      padding: 20px 30px;
+
+      border-top: 1px solid #e2e8f0;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+    }
+
+    .status-box {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+      color: #15803d;
+
+      font-size: 14px;
+
+      font-weight: bold;
+    }
+
+    .status-dot {
+
+      width: 9px;
+
+      height: 9px;
+
+      background: #22c55e;
+
+      border-radius: 50%;
+    }
+
+    .entry-note {
+
+      font-size: 11px;
+
+      color: #64748b;
+
+      text-align: right;
+    }
+
+
+    /* =========================
+       MOBILE
+       ========================= */
+
+    @media (max-width: 650px) {
+
+      body {
+
+        padding: 15px;
+
+        align-items: flex-start;
+
+      }
+
+      .booking-card {
+
+        width: 100%;
+
+      }
+
+      #ticketContainer {
+
+        width: 100%;
+
+      }
+
+      .ticket-header {
+
+        padding: 20px;
+
+      }
+
+      .park-name {
+
+        font-size: 20px;
+
+      }
+
+      .ticket-body {
+
+        padding: 22px;
+
+        grid-template-columns: 1fr;
+
+        text-align: center;
+      }
+
+      .customer-name {
+
+        font-size: 24px;
+
+      }
+
+      .details-grid {
+
+        text-align: left;
+      }
+
+      .qr-section {
+
+        order: -1;
+      }
+
+      .ticket-id-section {
+
+        margin: 0 20px;
+      }
+
+      .ticket-footer {
+
+        padding: 18px 20px;
+
+        flex-direction: column;
+
+        gap: 10px;
+
+        text-align: center;
+      }
+
+      .entry-note {
+
+        text-align: center;
+      }
+
+    }
+
+
+    /* =========================
+       PRINT
+       ========================= */
+
+    @media print {
+
+      body {
+
+        background: white;
+
+        padding: 0;
+      }
+
+      .booking-card {
+
+        display: none;
+      }
+
+      #ticketContainer {
+
+        display: block !important;
+
+        max-width: 720px;
+      }
+
+      .ticket {
+
+        box-shadow: none;
+
+        border: 1px solid #ddd;
+      }
+
+    }
+
+  </style>
+
 </head>
 
-<body style="
-  margin:0;
-  font-family:sans-serif;
 
-  /* 🌊 FULL BACKGROUND IMAGE */
-  background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') no-repeat center center/cover;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-">
+<body>
 
-  <!-- 🌊 FORM CONTAINER -->
-  <div style="
-    width:320px;
-    padding:25px;
 
-    /* 💧 WATER GLASS EFFECT */
-    background: rgba(0, 150, 255, 0.15);
-    backdrop-filter: blur(10px);
-    border-radius:15px;
-    border:1px solid rgba(255,255,255,0.3);
+  <!-- =========================
+       BOOKING FORM
+       ========================= -->
 
-    color:white;
-    box-shadow:0 0 20px rgba(0,0,0,0.4);
-  ">
+  <div class="booking-card">
 
-    <h2 style="text-align:center;">🎟️ Book Your Tickets</h2>
+    <h2>
+      Book Your Tickets
+    </h2>
 
-    <label>Timing</label>
-    <select style="width:100%; padding:8px; margin:10px 0;">
-      <option>Select Timing</option>
-      <option>10:00 To 2:00</option>
-      <option>2:30 To 5:00</option>
-    </select>
 
-    <label>Name</label>
-    <input type="text" placeholder="Enter name"
-      style="width:100%; padding:8px; margin:10px 0;">
+    <form id="ticketForm">
 
-    <label>Booking Date</label>
-    <input type="date"
-      style="width:100%; padding:8px; margin:10px 0;">
 
-    <label>Category</label>
-    <select style="width:100%; padding:8px; margin:10px 0;">
-      <option>Select Category</option>
-      <option>Adult</option>
-      <option>Kids</option>
-    </select>
+      <div class="form-group">
 
-    <label>Available Seat</label>
-    <input type="number" placeholder="Enter seats"
-      style="width:100%; padding:8px; margin:10px 0;">
+        <label for="name">
+          Name
+        </label>
 
-    <label>Seat Type</label>
-    <select style="width:100%; padding:8px; margin:10px 0;">
-      <option>Normal</option>
-      <option>VIP</option>
-    </select>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Enter name"
+          required
+        >
 
-    <button style="
-      width:100%;
-      padding:10px;
-      margin-top:15px;
-      background:#38bdf8;
-      border:none;
-      border-radius:8px;
-      color:white;
-      font-size:16px;
-      cursor:pointer;
-    ">
-      Book Now
-    </button>
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="email">
+          Email
+        </label>
+
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Enter your email"
+          required
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="phone">
+          Phone Number
+        </label>
+
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          placeholder="Enter your phone number"
+          required
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="bookingDate">
+          Booking Date
+        </label>
+
+        <input
+          type="date"
+          id="bookingDate"
+          name="bookingDate"
+          required
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="category">
+          Category
+        </label>
+
+        <select
+          id="category"
+          name="category"
+          required
+        >
+
+          <option value="">
+            Select Category
+          </option>
+
+          <option value="adult">
+            Adult
+          </option>
+
+          <option value="kids">
+            Kids
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="quantity">
+          Number of Tickets
+        </label>
+
+        <input
+          type="number"
+          id="quantity"
+          name="quantity"
+          min="1"
+          step="1"
+          placeholder="Enter number of tickets"
+          required
+        >
+
+      </div>
+
+
+      <button
+        type="submit"
+        class="book-button"
+      >
+        Book Now
+      </button>
+
+
+    </form>
 
   </div>
-<script src="script.js"></script>
+
+
+  <!-- =========================
+       PROFESSIONAL TICKET
+       ========================= -->
+
+  <div id="ticketContainer">
+
+
+    <div class="ticket">
+
+
+      <!-- HEADER -->
+
+      <div class="ticket-header">
+
+        <div>
+
+          <div class="park-name">
+             Aqua Water Park
+          </div>
+
+          <div class="park-tagline">
+            FUN • THRILLS • MEMORIES
+          </div>
+
+        </div>
+
+
+        <div class="entry-badge">
+          ENTRY PASS
+        </div>
+
+      </div>
+
+
+      <!-- CONFIRMATION -->
+
+      <div class="ticket-confirmed">
+
+        ✓ Booking Confirmed
+
+      </div>
+
+
+      <!-- MAIN CONTENT -->
+
+      <div class="ticket-body">
+
+
+        <div>
+
+
+          <div class="customer-label">
+            Guest
+          </div>
+
+
+          <div
+            class="customer-name"
+            id="ticketName"
+          ></div>
+
+
+          <div class="details-grid">
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Visit Date
+              </span>
+
+              <span
+                class="detail-value"
+                id="ticketDate"
+              ></span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Category
+              </span>
+
+              <span
+                class="detail-value"
+                id="ticketCategory"
+              ></span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Tickets
+              </span>
+
+              <span
+                class="detail-value"
+                id="ticketQuantity"
+              ></span>
+
+            </div>
+
+
+            <div class="detail-item">
+
+              <span class="detail-label">
+                Amount Paid
+              </span>
+
+              <span class="detail-value">
+                ₹<span id="ticketAmount"></span>
+              </span>
+
+            </div>
+
+
+          </div>
+
+
+        </div>
+
+
+        <!-- QR -->
+
+        <div class="qr-section">
+
+          <div id="qrcode"></div>
+
+          <div class="qr-text">
+
+            Present this QR code<br>
+            at the entrance
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+      <!-- TICKET ID -->
+
+      <div class="ticket-id-section">
+
+        <div class="ticket-id-label">
+          Ticket ID
+        </div>
+
+        <span id="ticketId"></span>
+
+      </div>
+
+
+      <!-- FOOTER -->
+
+      <div class="ticket-footer">
+
+
+        <div class="status-box">
+
+          <span class="status-dot"></span>
+
+          <span id="ticketStatus">
+            ACTIVE
+          </span>
+
+        </div>
+
+
+        <div class="entry-note">
+
+          Please keep this ticket<br>
+          ready at the entrance.
+
+        </div>
+
+
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+  <!-- QR CODE LIBRARY -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+
+  <!-- YOUR SCRIPT -->
+
+  <script src="script.js"></script>
+
+
+  <!-- RAZORPAY -->
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
 </body>
+
 </html>
+
