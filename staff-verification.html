@@ -157,9 +157,8 @@
             margin-bottom: 10px;
         }
 
-        /* =========================
-           QR SCANNER
-        ========================= */
+        /*            QR SCANNER
+        */
 
         #reader {
             width: 100%;
@@ -206,23 +205,22 @@
 
     <div class="container">
 
-        <h1>🎟️ Ticket Verification</h1>
+        <h1>Ticket Verification</h1>
 
         <p class="subtitle">
             Aqua Water Park - Staff Panel
         </p>
 
 
-        <!-- =========================
-             QR SCANNER BUTTON
-        ========================== -->
+        <!--              QR SCANNER BUTTON
+         -->
 
         <button
             type="button"
             id="scanButton"
             class="scanner-button">
 
-            📷 Scan QR Code
+             Scan QR Code
 
         </button>
 
@@ -251,9 +249,8 @@
         </button>
 
 
-        <!-- =========================
-             MANUAL VERIFICATION
-        ========================== -->
+        <!--              MANUAL VERIFICATION
+         -->
 
         <form id="verifyForm">
 
@@ -270,7 +267,7 @@
 
             <button type="submit">
 
-                🔍 Verify Ticket
+                 Verify Ticket
 
             </button>
 
@@ -321,9 +318,11 @@ let html5QrCode = null;
 let qrScanLocked = false;
 
 
-// =====================================================
+
+
 // VERIFY TICKET
-// =====================================================
+
+
 
 verifyForm.addEventListener(
     "submit",
@@ -374,9 +373,9 @@ verifyForm.addEventListener(
             );
 
 
-            // =================================================
+           
             // VALID TICKET
-            // =================================================
+           
 
             if (data.success) {
 
@@ -389,7 +388,7 @@ verifyForm.addEventListener(
                     <div class="success">
 
                         <div class="status">
-                            ✅ VALID TICKET
+                             VALID TICKET
                         </div>
 
                         <div class="ticket-details">
@@ -457,7 +456,7 @@ verifyForm.addEventListener(
                             id="checkInButton"
                             type="button">
 
-                            🚪 CHECK IN
+                             CHECK IN
 
                         </button>
 
@@ -479,9 +478,9 @@ verifyForm.addEventListener(
 
             }
 
-            // =================================================
+           
             // INVALID / USED / CANCELLED
-            // =================================================
+           
 
             else {
 
@@ -490,7 +489,7 @@ verifyForm.addEventListener(
                     <div class="error">
 
                         <div class="status">
-                            ❌ ${data.message}
+                             ${data.message}
                         </div>
 
                         <p>
@@ -518,7 +517,7 @@ verifyForm.addEventListener(
                 <div class="error">
 
                     <div class="status">
-                        ❌ SERVER ERROR
+                         SERVER ERROR
                     </div>
 
                     <p>
@@ -536,9 +535,9 @@ verifyForm.addEventListener(
 );
 
 
-// =====================================================
+
 // START QR SCANNER
-// =====================================================
+
 
 scanButton.addEventListener(
     "click",
@@ -625,9 +624,9 @@ async function startScanner() {
 }
 
 
-// =====================================================
+
 // QR SCANNED
-// =====================================================
+
 
 async function onQrCodeScanned(decodedText) {
 
@@ -664,9 +663,9 @@ async function onQrCodeScanned(decodedText) {
 }
 
 
-// =====================================================
+
 // QR SCAN ERROR
-// =====================================================
+
 
 function onQrCodeError(errorMessage) {
 
@@ -677,9 +676,8 @@ function onQrCodeError(errorMessage) {
 }
 
 
-// =====================================================
+
 // STOP QR SCANNER
-// =====================================================
 
 stopButton.addEventListener(
     "click",
@@ -734,9 +732,9 @@ async function stopScanner() {
 }
 
 
-// =====================================================
+
 // CHECK IN TICKET
-// =====================================================
+
 
 async function checkInTicket() {
 
@@ -804,10 +802,9 @@ async function checkInTicket() {
         );
 
 
-        // =================================================
+       
         // SUCCESS
-        // =================================================
-
+       
         if (data.success) {
 
             result.innerHTML = `
@@ -815,7 +812,7 @@ async function checkInTicket() {
                 <div class="success">
 
                     <div class="status">
-                        ✅ CHECK-IN SUCCESSFUL
+                         CHECK-IN SUCCESSFUL
                     </div>
 
                     <div class="ticket-details">
@@ -876,10 +873,7 @@ async function checkInTicket() {
         }
 
 
-        // =================================================
-        // FAILED CHECK-IN
-        // =================================================
-
+       
         else {
 
             result.innerHTML = `
@@ -887,7 +881,7 @@ async function checkInTicket() {
                 <div class="error">
 
                     <div class="status">
-                        ❌ CHECK-IN FAILED
+                         CHECK-IN FAILED
                     </div>
 
                     <p>
@@ -914,7 +908,7 @@ async function checkInTicket() {
             <div class="error">
 
                 <div class="status">
-                    ❌ SERVER ERROR
+                     SERVER ERROR
                 </div>
 
                 <p>
